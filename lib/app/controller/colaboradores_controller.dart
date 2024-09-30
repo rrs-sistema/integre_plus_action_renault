@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:integre_plus_action_renault/app/data/dto/pontuacao_produtividade_colaborador.dart';
+import 'package:integre_plus_action_renault/app/data/dto/dto.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:flutter_bootstrap/flutter_bootstrap.dart';
 
@@ -43,8 +43,11 @@ class ColaboradoresController extends GetxController
   set colaboradoresModel(value) => _colaboradoresModel.value = value ?? ColaboradoresModel();
 
   final List<PontuacaoProdutividadeColaborador> _listPontuacaoColaborador = [];
-  List<PontuacaoProdutividadeColaborador> get PontuacaoColaboradorStream =>
+  List<PontuacaoProdutividadeColaborador> get pontuacaoColaboradorStream =>
       _listPontuacaoColaborador;
+
+  final List<ConhecimentoTecnicoDto> _listConhecimentoTecnico = [];
+  List<ConhecimentoTecnicoDto> get conhecimentoTecnicoStream => _listConhecimentoTecnico;
 
   final _filter = Filter().obs;
   Filter get filter => _filter.value;
@@ -185,7 +188,7 @@ class ColaboradoresController extends GetxController
     });
   }
 
-  Future<List<PontuacaoProdutividadeColaborador>> getFilteredStream() async {
+  Future<List<PontuacaoProdutividadeColaborador>> getPontuacaoProdutividadeStream() async {
     int index = 0;
     await colaboradoresRepository.getFilteredStream().then((data) {
       data.listen((onData) {
@@ -203,6 +206,26 @@ class ColaboradoresController extends GetxController
       });
     });
     return _listPontuacaoColaborador;
+  }
+
+  Future<List<ConhecimentoTecnicoDto>> getConhecimentoTecnicoStream() async {
+    int index = 0;
+    await colaboradoresRepository.getConhecimentoTecnicoStream().then((data) {
+      data.listen((onData) {
+        for (Map<String, dynamic> map in onData) {
+          var cola = ConhecimentoTecnicoDto(
+            index: index,
+            nivelConhecimento: map['nivelConhecimento'],
+            totalColaboradorPorNivel: map['totalColaboradorPorNivel'],
+            mediaNivelConhecimento: map['mediaNivelConhecimento'],
+            percentualColaborador: map['percentualColaborador'],
+          );
+          _listConhecimentoTecnico.add(cola);
+          index++;
+        }
+      });
+    });
+    return _listConhecimentoTecnico;
   }
 
   void printReport() {
@@ -437,7 +460,8 @@ class ColaboradoresController extends GetxController
     );
     tabController = TabController(vsync: this, length: tabItems.length);
     functionName = "colaboradores";
-    getFilteredStream();
+    getPontuacaoProdutividadeStream();
+    getConhecimentoTecnicoStream();
     setPrivilege();
     super.onInit();
   }

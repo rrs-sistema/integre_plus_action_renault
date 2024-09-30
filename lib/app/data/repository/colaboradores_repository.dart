@@ -10,6 +10,15 @@ class ColaboradoresRepository {
     return await colaboradoresDriftProvider.getFilteredStream();
   }
 
+  Future<Stream<List<Map<String, dynamic>>>> getConhecimentoTecnicoStream() async {
+    return await colaboradoresDriftProvider.getConhecimentoTecnicoStream();
+  }
+
+  Future<Stream<List<Map<String, dynamic>>>> getCombinacaoIndicadorestream(
+      int idColaborador) async {
+    return await colaboradoresDriftProvider.getCombinacaoIndicadorestream(idColaborador);
+  }
+
   Future getList({Filter? filter}) async {
     return await colaboradoresDriftProvider.getList(filter: filter);
   }

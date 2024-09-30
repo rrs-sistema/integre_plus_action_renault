@@ -7,7 +7,6 @@ import 'package:integre_plus_action_renault/app/data/repository/lookup_repositor
 import 'package:integre_plus_action_renault/app/controller/controller_imports.dart';
 import 'package:integre_plus_action_renault/app/data/provider/drift/database/database.dart';
 
-// TODO: get data from your own user
 class LogedInUser {
   String administrador = 'S';
 }

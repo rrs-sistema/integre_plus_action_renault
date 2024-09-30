@@ -6,9 +6,12 @@ import 'package:integre_plus_action_renault/app/controller/controller_imports.da
 import 'package:integre_plus_action_renault/app/infra/colors.dart';
 import 'package:integre_plus_action_renault/app/infra/constants.dart';
 import 'package:integre_plus_action_renault/app/infra/util.dart';
+import 'package:integre_plus_action_renault/app/page/header.dart';
+import 'package:integre_plus_action_renault/app/page/shared_widget/charts/statics_by_category.dart';
+import 'package:integre_plus_action_renault/app/page/shared_widget/indicator.dart';
 import 'package:integre_plus_action_renault/app/page/shared_widget/main_side_drawer.dart';
 
-class HomePage extends GetView<LoginController> {
+class HomePage extends GetView<ColaboradoresController> {
   HomePage({Key? key}) : super(key: key);
   final themeController = Get.find<ThemeController>();
   final colaboradoresController = Get.find<ColaboradoresController>();
@@ -63,160 +66,197 @@ class HomePage extends GetView<LoginController> {
                 ).image,
               ),
             ),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BootstrapContainer(
-                        fluid: true,
-                        padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                        children: <Widget>[
-                          const Divider(
-                            color: Colors.transparent,
-                          ),
-                          BootstrapRow(
-                            children: <BootstrapCol>[
-                              BootstrapCol(
-                                sizes: 'col-6',
-                                child: Padding(
-                                  padding: Util.distanceBetweenColumnsLineBreak(context)!,
-                                  child: Card(
-                                    elevation: 10,
-                                    color: themeController.isDarkMode
-                                        ? const Color.fromARGB(255, 171, 211, 250).withOpacity(0.2)
-                                        : Colors.blue.shade100.withOpacity(0.1),
-                                    child: Container(
-                                      width: 850,
-                                      padding: const EdgeInsets.all(20.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
-                                            'Pontuação de Produtividade',
-                                            style: TextStyle(
-                                                fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 60),
-                                            child: barChartPontuacaoProdutividade(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              BootstrapCol(
-                                sizes: 'col-6',
-                                child: Padding(
-                                  padding: Util.distanceBetweenColumnsLineBreak(context)!,
-                                  child: Card(
-                                    elevation: 10,
-                                    color: themeController.isDarkMode
-                                        ? const Color.fromARGB(255, 171, 211, 250).withOpacity(0.2)
-                                        : Colors.blue.shade100.withOpacity(0.1),
-                                    child: Container(
-                                      width: 850,
-                                      padding: const EdgeInsets.all(20.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
-                                            'Pontuação com Engajamento',
-                                            style: TextStyle(
-                                                fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 60),
-                                            child: barChartEngajamento(),
-                                          ),
-                                        ],
+            child: SafeArea(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Header(),
+                      const SizedBox(height: Constants.defaultPadding),
+                      BootstrapContainer(
+                          fluid: true,
+                          padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                          children: <Widget>[
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(
+                              children: <BootstrapCol>[
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: Card(
+                                      elevation: 10,
+                                      color: themeController.isDarkMode
+                                          ? const Color.fromARGB(255, 171, 211, 250)
+                                              .withOpacity(0.2)
+                                          : Colors.blue.shade100.withOpacity(0.1),
+                                      child: Container(
+                                        width: 850,
+                                        padding: const EdgeInsets.all(20.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Text(
+                                              'Pontuação de Produtividade',
+                                              style: TextStyle(
+                                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 60),
+                                              child: barChartPontuacaoProdutividade(),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const Divider(
-                            color: Colors.transparent,
-                          ),
-                          BootstrapRow(
-                            height: 60,
-                            children: <BootstrapCol>[
-                              BootstrapCol(
-                                sizes: 'col-6',
-                                child: Padding(
-                                  padding: Util.distanceBetweenColumnsLineBreak(context)!,
-                                  child: Card(
-                                    elevation: 10,
-                                    color: themeController.isDarkMode
-                                        ? const Color.fromARGB(255, 171, 211, 250).withOpacity(0.2)
-                                        : Colors.blue.shade100.withOpacity(0.1),
-                                    child: Container(
-                                      width: 850,
-                                      padding: const EdgeInsets.all(20.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
-                                            'Avaliação de Comunicação',
-                                            style: TextStyle(
-                                                fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(top: 60),
-                                            child: barChartAvaliacaoComunicacao(),
-                                          ),
-                                        ],
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: Card(
+                                      elevation: 10,
+                                      color: themeController.isDarkMode
+                                          ? const Color.fromARGB(255, 171, 211, 250)
+                                              .withOpacity(0.2)
+                                          : Colors.blue.shade100.withOpacity(0.1),
+                                      child: Container(
+                                        width: 850,
+                                        padding: const EdgeInsets.all(20.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Text(
+                                              'Pontuação com Engajamento',
+                                              style: TextStyle(
+                                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 60),
+                                              child: barChartEngajamento(),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              BootstrapCol(
-                                sizes: 'col-6',
-                                child: Padding(
-                                  padding: Util.distanceBetweenColumnsLineBreak(context)!,
-                                  child: Card(
-                                    elevation: 10,
-                                    color: themeController.isDarkMode
-                                        ? const Color.fromARGB(255, 171, 211, 250).withOpacity(0.2)
-                                        : Colors.blue.shade100.withOpacity(0.1),
-                                    child: Container(
-                                      width: 850,
-                                      padding: const EdgeInsets.all(20.0),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: const Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            'Outras Pontuações',
-                                            style: TextStyle(
-                                                fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
+                              ],
+                            ),
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(
+                              height: 60,
+                              children: <BootstrapCol>[
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: Card(
+                                      elevation: 10,
+                                      color: themeController.isDarkMode
+                                          ? const Color.fromARGB(255, 171, 211, 250)
+                                              .withOpacity(0.2)
+                                          : Colors.blue.shade100.withOpacity(0.1),
+                                      child: Container(
+                                        width: 850,
+                                        padding: const EdgeInsets.all(20.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Text(
+                                              'Avaliação de Comunicação',
+                                              style: TextStyle(
+                                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(top: 60),
+                                                    child: barChartAvaliacaoComunicacao(),
+                                                  ),
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: colaboradoresController
+                                                      .pontuacaoColaboradorStream
+                                                      .map((item) {
+                                                    return Indicator(
+                                                      text: item.nome!
+                                                          .substring(0, item.nome!.indexOf(' ')),
+                                                      color: getColor(item.index!),
+                                                      isSquare: true,
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ]),
-                  ],
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: Card(
+                                      elevation: 10,
+                                      color: themeController.isDarkMode
+                                          ? const Color.fromARGB(255, 171, 211, 250)
+                                              .withOpacity(0.2)
+                                          : Colors.blue.shade100.withOpacity(0.1),
+                                      child: Container(
+                                        width: 850,
+                                        padding: const EdgeInsets.all(20.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Text(
+                                              'Conhecimento técnico',
+                                              style: TextStyle(
+                                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(top: 60),
+                                                    child: barChartConhecimentoTecnico(),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -226,13 +266,20 @@ class HomePage extends GetView<LoginController> {
     );
   }
 
+  SizedBox barChartConhecimentoTecnico() {
+    return const SizedBox(
+      height: 350,
+      child: StaticsByCategory(),
+    );
+  }
+
   SizedBox barChartEngajamento() {
     return SizedBox(
       height: 350,
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
-          barGroups: colaboradoresController.PontuacaoColaboradorStream.map((item) {
+          barGroups: colaboradoresController.pontuacaoColaboradorStream.map((item) {
             return BarChartGroupData(
               x: item.index!,
               barRods: [
@@ -270,7 +317,7 @@ class HomePage extends GetView<LoginController> {
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
-          barGroups: colaboradoresController.PontuacaoColaboradorStream.map((item) {
+          barGroups: colaboradoresController.pontuacaoColaboradorStream.map((item) {
             return BarChartGroupData(
               x: item.index!,
               barRods: [
@@ -309,10 +356,10 @@ class HomePage extends GetView<LoginController> {
       height: 350,
       child: PieChart(
         PieChartData(
-          sections: colaboradoresController.PontuacaoColaboradorStream.map((item) {
+          sections: colaboradoresController.pontuacaoColaboradorStream.map((item) {
             return PieChartSectionData(
               value: item.avaliacaoComunicacao!,
-              title: item.nome!.substring(0, item.nome!.indexOf(' ')),
+              title: '${item.pontuacaoEngajamento}%',
               color: getColor(item.index!),
               radius: 100,
             );
@@ -333,8 +380,8 @@ class HomePage extends GetView<LoginController> {
       showTitles: true,
       interval: 1,
       getTitlesWidget: (value, meta) {
-        String nome = colaboradoresController.PontuacaoColaboradorStream[value.toInt()].nome!;
-        var date = value.toInt() < colaboradoresController.PontuacaoColaboradorStream.length
+        String nome = colaboradoresController.pontuacaoColaboradorStream[value.toInt()].nome!;
+        var date = value.toInt() < colaboradoresController.pontuacaoColaboradorStream.length
             ? nome.substring(0, nome.indexOf(' '))
             : "";
         return SideTitleWidget(

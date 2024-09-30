@@ -46,6 +46,65 @@ class ColaboradoresDao extends DatabaseAccessor<AppDatabase> with _$Colaboradore
     });
   }
 
+  Stream<List<Map<String, dynamic>>> getConhecimentoTecnicoStream() {
+    return customSelect(
+      "WITH totalColaboradores AS ( "
+      "SELECT COUNT(DISTINCT ColaboradorID) AS Total FROM ConhecimentoTecnico ) "
+      "SELECT "
+      "NivelConhecimento as nivelConhecimento, "
+      "COUNT(ColaboradorID) AS totalColaboradorPorNivel, "
+      "(COUNT(ColaboradorID) * 100.0 / (SELECT Total FROM TotalColaboradores)) AS percentualColaborador, "
+      "AVG(CASE "
+      "WHEN NivelConhecimento = 'Básico' THEN 1 "
+      "WHEN NivelConhecimento = 'Intermediário' THEN 2 "
+      "WHEN NivelConhecimento = 'Avançado' THEN 3 "
+      "ELSE 0 "
+      "END) AS mediaNivelConhecimento "
+      "FROM ConhecimentoTecnico "
+      "GROUP BY NivelConhecimento;",
+      readsFrom: {
+        conhecimentotecnicos,
+      },
+    ).watch().map((rows) {
+      return rows.map((row) => row.data).toList();
+    });
+  }
+
+  Stream<List<Map<String, dynamic>>> getCombinacaoIndicadorestream(int idColaborador) {
+    return customSelect(
+      "SELECT "
+      "(SELECT AVG(CASE "
+      "WHEN NivelConhecimento = 'Básico' THEN 1 "
+      "WHEN NivelConhecimento = 'Intermediário' THEN 2 "
+      "WHEN NivelConhecimento = 'Avançado' THEN 3 "
+      "ELSE 0 "
+      "END) "
+      "FROM ConhecimentoTecnico where colaboradorid = $idColaborador) AS mediaNivelConhecimento, "
+      "(SELECT AVG(PontuacaoEngajamento) "
+      "FROM EngajamentoProatividade where colaboradorid = $idColaborador) AS mediaEngajamento, "
+      "(SELECT AVG(AvaliacaoComunicacao) "
+      "FROM CapacidadeComunicacao where colaboradorid = $idColaborador) AS mediaComunicacao, "
+      "(SELECT AVG(MetasAtingidas) "
+      "FROM ResultadosAtingidos where colaboradorid = $idColaborador) AS mediaMetasAtingidas, "
+      "(SELECT AVG(PontuacaoProdutividade) "
+      "FROM ResultadosAtingidos where colaboradorid = $idColaborador) AS mediaProdutividade, "
+      "(SELECT (COUNT(DISTINCT ColaboradorID) / (SELECT COUNT(*) FROM Colaboradores)) * 100 "
+      "FROM CapacitacaoTreinamentos where colaboradorid = $idColaborador) AS PercentualTreinados, "
+      "(SELECT AVG(LENGTH(Feedback)) "
+      "FROM FeedbackSupervisores where colaboradorid = $idColaborador) AS mediaAvaliacaoQualitativa, "
+      "(SELECT COUNT(ResolucaoID) "
+      "FROM ResolucaoProblemas where colaboradorid = $idColaborador) AS totalProblemasResolvidos, "
+      "(SELECT AVG(AvaliacaoResolucao) "
+      "FROM ResolucaoProblemas where colaboradorid = $idColaborador) AS mediaAvaliacaoResolucao, "
+      "(SELECT AVG(FaltasInjustificadas) "
+      "FROM AssiduidadePontualidade where colaboradorid = $idColaborador) AS mediaFaltasInjustificadas, "
+      "(SELECT AVG(Atrasos) "
+      "FROM AssiduidadePontualidade where colaboradorid = $idColaborador) AS mediaAtrasos;",
+    ).watch().map((rows) {
+      return rows.map((row) => row.data).toList();
+    });
+  }
+
   Future<List<Colaboradores>> getList() async {
     colaboradoresList = await select(colaboradoress).get();
     return colaboradoresList;
