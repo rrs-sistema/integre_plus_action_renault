@@ -1,5 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:integre_plus_action_renault/app/controller/theme_controller.dart';
 
 class CustomDropdownButtonFormField extends StatelessWidget {
   final String value;
@@ -9,8 +11,9 @@ class CustomDropdownButtonFormField extends StatelessWidget {
   final Function(dynamic) onChanged;
   final Function(dynamic)? validator;
   final Color? fontColor;
+  final themeController = Get.find<ThemeController>();
 
-  const CustomDropdownButtonFormField({
+  CustomDropdownButtonFormField({
     Key? key,
     required this.value,
     required this.labelText,
@@ -46,30 +49,29 @@ class CustomDropdownButtonFormField extends StatelessWidget {
         hintText,
         style: const TextStyle(fontSize: 14),
       ),
-      iconStyleData: const IconStyleData(
+      iconStyleData: IconStyleData(
         icon: Icon(
           Icons.arrow_drop_down,
-          color: Colors.black,
+          color: themeController.isDarkMode ? Colors.white : Colors.black,
         ),
         iconSize: 26,
-      ),      
+      ),
       buttonStyleData: ButtonStyleData(
         padding: EdgeInsets.only(top: labelText.isEmpty ? 0 : 5),
         height: 40,
-      ),      
+      ),
       dropdownStyleData: DropdownStyleData(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
         ),
-      ),      
+      ),
       value: value,
       items: items
           .map((item) => DropdownMenuItem<String>(
                 value: item,
                 child: Text(
                   item,
-                  style:
-                      TextStyle(fontSize: 14, color: fontColor ?? Colors.black),
+                  style: TextStyle(fontSize: 14, color: fontColor ?? Colors.black),
                 ),
               ))
           .toList(),

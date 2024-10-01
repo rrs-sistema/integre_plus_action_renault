@@ -18,6 +18,19 @@ class Constants {
   static const String loginImage = '$imageDir/login.jpg';
   static const String profileImage = '$imageDir/profile.png';
 
+  static const String iconDir = 'assets/icons';
+  static const String knowledge = '$iconDir/knowledge.png';
+  static const String engagement = '$iconDir/engagement.png';
+  static const String communication = '$iconDir/communication.png';
+  static const String goals = '$iconDir/goals.png';
+  static const String productivity = '$iconDir/productivity.png';
+  static const String training = '$iconDir/training.png';
+  static const String feedback = '$iconDir/feedback.png';
+  static const String problemResolved = '$iconDir/problem_resolved.png';
+  static const String resolution = '$iconDir/resolution.png';
+  static const String absence = '$iconDir/absence.png';
+  static const String late = '$iconDir/late.png';
+
   // local database
   static const sqlGetSettings = "SELECT * FROM HIDDEN_SETTINGS WHERE ID=1";
 

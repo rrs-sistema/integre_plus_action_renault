@@ -14,7 +14,7 @@ class ColaboradoresDriftProvider extends ProviderBase {
   }
 
   Future<Stream<List<Map<String, dynamic>>>> getCombinacaoIndicadorestream(
-      int idColaborador) async {
+      int? idColaborador) async {
     return Session.database.colaboradoresDao.getCombinacaoIndicadorestream(idColaborador);
   }
 

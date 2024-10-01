@@ -47,12 +47,11 @@ class LoginPage extends GetView<LoginController> {
       const SizedBox(
         height: 20,
       ),
-      LoginButton(text: 'login'.tr, function: () async {
-				// TODO: modify it to get info about user and authenticate
-        // await userController.getObject(email: controller.emailController.text, password: controller.passwordController.text);
-				// or call doLogin() method from LoginController and insert something like the line above on it
-        Get.offAndToNamed(Routes.homePage);
-      }),
+      LoginButton(
+          text: 'login'.tr,
+          function: () async {
+            Get.offAndToNamed(Routes.homePage);
+          }),
     ];
   }
 }

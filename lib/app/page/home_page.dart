@@ -6,9 +6,10 @@ import 'package:integre_plus_action_renault/app/controller/controller_imports.da
 import 'package:integre_plus_action_renault/app/infra/colors.dart';
 import 'package:integre_plus_action_renault/app/infra/constants.dart';
 import 'package:integre_plus_action_renault/app/infra/util.dart';
-import 'package:integre_plus_action_renault/app/page/header.dart';
+import 'package:integre_plus_action_renault/app/page/cards/card_dashboard.dart';
 import 'package:integre_plus_action_renault/app/page/shared_widget/charts/statics_by_category.dart';
 import 'package:integre_plus_action_renault/app/page/shared_widget/indicator.dart';
+import 'package:integre_plus_action_renault/app/page/shared_widget/input/custom_dropdown_button_form_field.dart';
 import 'package:integre_plus_action_renault/app/page/shared_widget/main_side_drawer.dart';
 
 class HomePage extends GetView<ColaboradoresController> {
@@ -18,6 +19,7 @@ class HomePage extends GetView<ColaboradoresController> {
 
   @override
   Widget build(BuildContext context) {
+    //PontuacaoGeralDto potualcaoGeral = colaboradoresController.pontuacaoGeralStream;
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.appName),
@@ -72,12 +74,171 @@ class HomePage extends GetView<ColaboradoresController> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Header(),
-                      const SizedBox(height: Constants.defaultPadding),
                       BootstrapContainer(
                           fluid: true,
                           padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                           children: <Widget>[
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(children: <BootstrapCol>[
+                              BootstrapCol(
+                                sizes: 'col-6',
+                                child: Padding(
+                                  padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                  child: CustomDropdownButtonFormField(
+                                    value:
+                                        colaboradoresController.pontuacaoColaboradorStream[0].nome!,
+                                    labelText: 'Selecione o colaborador',
+                                    hintText: 'Selecione o colaborador',
+                                    fontColor:
+                                        themeController.isDarkMode ? Colors.white : Colors.black,
+                                    items: colaboradoresController.pontuacaoColaboradorStream
+                                        .map((item) {
+                                      return item.nome!;
+                                    }).toList(),
+                                    onChanged: (dynamic newValue) {
+                                      int idCola = colaboradoresController.colaboradoresModelList
+                                          .where((x) => x.nome == newValue)
+                                          .first
+                                          .colaboradorid!;
+                                      colaboradoresController.getCombinacaoIndicadorestream(idCola);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ]),
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            const Text(
+                              'Pontuação gerais',
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(
+                              children: <BootstrapCol>[
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Média nível conhecimento',
+                                        iconPath: Constants.knowledge,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.mediaNivelConhecimento!
+                                            .toStringAsFixed(2)),
+                                  ),
+                                ),
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Média de engajamento',
+                                        iconPath: Constants.engagement,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.mediaEngajamento!
+                                            .toStringAsFixed(2)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(
+                              children: <BootstrapCol>[
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Média meta atingida',
+                                        iconPath: Constants.goals,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.mediaMetaAtingida!
+                                            .toStringAsFixed(2)),
+                                  ),
+                                ),
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Média produtividade',
+                                        iconPath: Constants.productivity,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.mediaProdutividade!
+                                            .toStringAsFixed(2)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(
+                              children: <BootstrapCol>[
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Percentual de treinamento',
+                                        iconPath: Constants.training,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.percentualTreinamento!
+                                            .toString()),
+                                  ),
+                                ),
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Média de valiação qualitativa',
+                                        iconPath: Constants.feedback,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.mediaAvaliacaoQualitativa!
+                                            .toStringAsFixed(2)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              color: Colors.transparent,
+                            ),
+                            BootstrapRow(
+                              children: <BootstrapCol>[
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Total de problema resolvido',
+                                        iconPath: Constants.problemResolved,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.totalProblemaResolvido!
+                                            .toString()),
+                                  ),
+                                ),
+                                BootstrapCol(
+                                  sizes: 'col-6',
+                                  child: Padding(
+                                    padding: Util.distanceBetweenColumnsLineBreak(context)!,
+                                    child: CardDashboard(
+                                        title: 'Média de avaliação resolução',
+                                        iconPath: Constants.resolution,
+                                        value: colaboradoresController
+                                            .pontuacaoGeralStream.mediaAvaliacaoResolucao!
+                                            .toStringAsFixed(2)),
+                                  ),
+                                ),
+                              ],
+                            ),
                             const Divider(
                               color: Colors.transparent,
                             ),

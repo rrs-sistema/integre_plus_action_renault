@@ -32,6 +32,13 @@ class Session {
         () => LookupController(
             lookupRepository: LookupRepository(lookupDriftProvider: LookupDriftProvider())),
         permanent: true);
+
+    final colaboradorController = Get.find<ColaboradoresController>();
+
+    colaboradorController.getList(filter: null);
+    colaboradorController.getPontuacaoProdutividadeStream();
+    colaboradorController.getConhecimentoTecnicoStream();
+    colaboradorController.getCombinacaoIndicadorestream(null);
   }
 
   static setLookupController() {

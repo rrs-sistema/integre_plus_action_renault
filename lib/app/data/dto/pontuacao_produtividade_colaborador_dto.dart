@@ -1,11 +1,11 @@
-class PontuacaoProdutividadeColaborador {
+class PontuacaoProdutividadeColaboradorDto {
   int? index;
   String? nome;
   double? pontuacaoProdutividade;
   double? pontuacaoEngajamento;
   double? avaliacaoComunicacao;
 
-  PontuacaoProdutividadeColaborador({
+  PontuacaoProdutividadeColaboradorDto({
     this.index,
     this.nome,
     this.pontuacaoProdutividade,

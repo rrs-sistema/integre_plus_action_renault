@@ -70,7 +70,11 @@ class ColaboradoresDao extends DatabaseAccessor<AppDatabase> with _$Colaboradore
     });
   }
 
-  Stream<List<Map<String, dynamic>>> getCombinacaoIndicadorestream(int idColaborador) {
+  Stream<List<Map<String, dynamic>>> getCombinacaoIndicadorestream(int? idColaborador) {
+    String where = 'where colaboradorid > 0';
+    if (idColaborador != null) {
+      where = 'where colaboradorid = $idColaborador';
+    }
     return customSelect(
       "SELECT "
       "(SELECT AVG(CASE "
@@ -79,27 +83,27 @@ class ColaboradoresDao extends DatabaseAccessor<AppDatabase> with _$Colaboradore
       "WHEN NivelConhecimento = 'Avançado' THEN 3 "
       "ELSE 0 "
       "END) "
-      "FROM ConhecimentoTecnico where colaboradorid = $idColaborador) AS mediaNivelConhecimento, "
+      "FROM ConhecimentoTecnico $where) AS mediaNivelConhecimento, "
       "(SELECT AVG(PontuacaoEngajamento) "
-      "FROM EngajamentoProatividade where colaboradorid = $idColaborador) AS mediaEngajamento, "
+      "FROM EngajamentoProatividade $where) AS mediaEngajamento, "
       "(SELECT AVG(AvaliacaoComunicacao) "
-      "FROM CapacidadeComunicacao where colaboradorid = $idColaborador) AS mediaComunicacao, "
+      "FROM CapacidadeComunicacao $where) AS mediaComunicacao, "
       "(SELECT AVG(MetasAtingidas) "
-      "FROM ResultadosAtingidos where colaboradorid = $idColaborador) AS mediaMetasAtingidas, "
+      "FROM ResultadosAtingidos $where) AS mediaMetaAtingida, "
       "(SELECT AVG(PontuacaoProdutividade) "
-      "FROM ResultadosAtingidos where colaboradorid = $idColaborador) AS mediaProdutividade, "
+      "FROM ResultadosAtingidos $where) AS mediaProdutividade, "
       "(SELECT (COUNT(DISTINCT ColaboradorID) / (SELECT COUNT(*) FROM Colaboradores)) * 100 "
-      "FROM CapacitacaoTreinamentos where colaboradorid = $idColaborador) AS PercentualTreinados, "
+      "FROM CapacitacaoTreinamentos $where) AS percentualTreinamento, "
       "(SELECT AVG(LENGTH(Feedback)) "
-      "FROM FeedbackSupervisores where colaboradorid = $idColaborador) AS mediaAvaliacaoQualitativa, "
+      "FROM FeedbackSupervisores $where) AS mediaAvaliacaoQualitativa, "
       "(SELECT COUNT(ResolucaoID) "
-      "FROM ResolucaoProblemas where colaboradorid = $idColaborador) AS totalProblemasResolvidos, "
+      "FROM ResolucaoProblemas $where) AS totalProblemaResolvido, "
       "(SELECT AVG(AvaliacaoResolucao) "
-      "FROM ResolucaoProblemas where colaboradorid = $idColaborador) AS mediaAvaliacaoResolucao, "
+      "FROM ResolucaoProblemas $where) AS mediaAvaliacaoResolucao, "
       "(SELECT AVG(FaltasInjustificadas) "
-      "FROM AssiduidadePontualidade where colaboradorid = $idColaborador) AS mediaFaltasInjustificadas, "
+      "FROM AssiduidadePontualidade $where) AS mediaFaltaInjustificada, "
       "(SELECT AVG(Atrasos) "
-      "FROM AssiduidadePontualidade where colaboradorid = $idColaborador) AS mediaAtrasos;",
+      "FROM AssiduidadePontualidade $where) AS mediaAtraso;",
     ).watch().map((rows) {
       return rows.map((row) => row.data).toList();
     });

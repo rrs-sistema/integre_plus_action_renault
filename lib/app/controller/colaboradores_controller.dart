@@ -35,6 +35,8 @@ class ColaboradoresController extends GetxController
   final gridColumns = colaboradoresGridColumns();
 
   var _colaboradoresModelList = <ColaboradoresModel>[];
+  //final List<ColaboradoresModel> _colaboradoresModelList = [];
+  List<ColaboradoresModel> get colaboradoresModelList => _colaboradoresModelList;
 
   var _colaboradoresModelOld = ColaboradoresModel();
 
@@ -42,12 +44,16 @@ class ColaboradoresController extends GetxController
   ColaboradoresModel get colaboradoresModel => _colaboradoresModel.value;
   set colaboradoresModel(value) => _colaboradoresModel.value = value ?? ColaboradoresModel();
 
-  final List<PontuacaoProdutividadeColaborador> _listPontuacaoColaborador = [];
-  List<PontuacaoProdutividadeColaborador> get pontuacaoColaboradorStream =>
+  final List<PontuacaoProdutividadeColaboradorDto> _listPontuacaoColaborador = [];
+  List<PontuacaoProdutividadeColaboradorDto> get pontuacaoColaboradorStream =>
       _listPontuacaoColaborador;
 
   final List<ConhecimentoTecnicoDto> _listConhecimentoTecnico = [];
   List<ConhecimentoTecnicoDto> get conhecimentoTecnicoStream => _listConhecimentoTecnico;
+
+  final _pontuacaoGeral = PontuacaoGeralDto().obs;
+  PontuacaoGeralDto get pontuacaoGeralStream => _pontuacaoGeral.value;
+  set pontuacaoGeralStream(value) => _pontuacaoGeral.value = value ?? PontuacaoGeralDto();
 
   final _filter = Filter().obs;
   Filter get filter => _filter.value;
@@ -188,12 +194,12 @@ class ColaboradoresController extends GetxController
     });
   }
 
-  Future<List<PontuacaoProdutividadeColaborador>> getPontuacaoProdutividadeStream() async {
+  Future<void> getPontuacaoProdutividadeStream() async {
     int index = 0;
     await colaboradoresRepository.getFilteredStream().then((data) {
       data.listen((onData) {
         for (Map<String, dynamic> map in onData) {
-          var cola = PontuacaoProdutividadeColaborador(
+          var cola = PontuacaoProdutividadeColaboradorDto(
             index: index,
             nome: map['nomeColaborador'],
             pontuacaoProdutividade: map['pontuacaoProdutividade'],
@@ -205,10 +211,9 @@ class ColaboradoresController extends GetxController
         }
       });
     });
-    return _listPontuacaoColaborador;
   }
 
-  Future<List<ConhecimentoTecnicoDto>> getConhecimentoTecnicoStream() async {
+  Future<void> getConhecimentoTecnicoStream() async {
     int index = 0;
     await colaboradoresRepository.getConhecimentoTecnicoStream().then((data) {
       data.listen((onData) {
@@ -225,7 +230,33 @@ class ColaboradoresController extends GetxController
         }
       });
     });
-    return _listConhecimentoTecnico;
+  }
+
+  Future<void> getCombinacaoIndicadorestream(int? idColaborador) async {
+    int index = 0;
+    await colaboradoresRepository.getCombinacaoIndicadorestream(idColaborador).then((data) {
+      data.listen((onData) {
+        for (Map<String, dynamic> map in onData) {
+          var cola = PontuacaoGeralDto(
+            index: index,
+            percentualTreinamento: map['percentualTreinamento'],
+            totalProblemaResolvido: map['totalProblemaResolvido'],
+            mediaNivelConhecimento: map['mediaNivelConhecimento'],
+            mediaEngajamento: map['mediaEngajamento'],
+            mediaComunicacao: map['mediaComunicacao'],
+            mediaMetaAtingida: map['mediaMetaAtingida'],
+            mediaProdutividade: map['mediaProdutividade'],
+            mediaAvaliacaoQualitativa: map['mediaAvaliacaoQualitativa'],
+            mediaAvaliacaoResolucao: map['mediaAvaliacaoResolucao'],
+            mediaFaltaInjustificada: map['mediaFaltaInjustificada'],
+            mediaAtraso: map['mediaAtraso'],
+          );
+          pontuacaoGeralStream = cola;
+          index++;
+        }
+        update();
+      });
+    });
   }
 
   void printReport() {
@@ -460,8 +491,6 @@ class ColaboradoresController extends GetxController
     );
     tabController = TabController(vsync: this, length: tabItems.length);
     functionName = "colaboradores";
-    getPontuacaoProdutividadeStream();
-    getConhecimentoTecnicoStream();
     setPrivilege();
     super.onInit();
   }

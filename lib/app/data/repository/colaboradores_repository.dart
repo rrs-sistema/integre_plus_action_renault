@@ -15,7 +15,7 @@ class ColaboradoresRepository {
   }
 
   Future<Stream<List<Map<String, dynamic>>>> getCombinacaoIndicadorestream(
-      int idColaborador) async {
+      int? idColaborador) async {
     return await colaboradoresDriftProvider.getCombinacaoIndicadorestream(idColaborador);
   }
 

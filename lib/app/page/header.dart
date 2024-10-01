@@ -14,10 +14,10 @@ class Header extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "Dashboard",
+          "Colaboradores",
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        const Expanded(child: SearchField()),
+        //const Expanded(child: SearchField()),
         ProfileCard()
       ],
     );
