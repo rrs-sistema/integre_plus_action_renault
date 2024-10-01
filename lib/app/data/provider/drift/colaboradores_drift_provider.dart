@@ -18,6 +18,10 @@ class ColaboradoresDriftProvider extends ProviderBase {
     return Session.database.colaboradoresDao.getCombinacaoIndicadorestream(idColaborador);
   }
 
+  Future<Stream<Map<String, dynamic>>> getMediaGeralStream(int? idColaborador) async {
+    return Session.database.colaboradoresDao.getMediaGeralStream(idColaborador);
+  }
+
   Future<List<ColaboradoresModel>?> getList({Filter? filter}) async {
     List<ColaboradoresGrouped> colaboradoresDriftList = [];
 

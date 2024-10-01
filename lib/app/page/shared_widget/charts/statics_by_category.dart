@@ -28,7 +28,6 @@ class _StaticsByCategoryState extends State<StaticsByCategory> {
         Expanded(
           child: SizedBox(
             height: 250,
-            width: 300,
             child: _pieChart(
               colaboradoresController.conhecimentoTecnicoStream
                   .map(
@@ -70,15 +69,14 @@ class _StaticsByCategoryState extends State<StaticsByCategory> {
     final totalCola = data.fold(0, (sum, item) => sum + item.totalColaboradorPorNivel!);
     return Obx(() => SizedBox(
           height: 280,
-          width: 350,
           child: Stack(
             children: [
               Align(
                 alignment: Alignment.center,
                 child: Text(
                   touchedIndex == -1
-                      ? "$totalCola - Colaboradores"
-                      : "${data[touchedIndex].totalColaboradorPorNivel}  - Colaboradores",
+                      ? "Total: $totalCola"
+                      : "Total: ${data[touchedIndex].totalColaboradorPorNivel}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: themeController.isDarkMode ? Colors.white : Colors.black,
@@ -114,7 +112,7 @@ class _StaticsByCategoryState extends State<StaticsByCategory> {
                     show: false,
                   ),
                   sectionsSpace: 1,
-                  centerSpaceRadius: 90,
+                  centerSpaceRadius: 60,
                 ),
                 swapAnimationDuration: const Duration(milliseconds: 150),
                 swapAnimationCurve: Curves.linear,

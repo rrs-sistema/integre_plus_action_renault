@@ -9,7 +9,7 @@ class ExpenseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
       child: Row(
         children: [
           Container(
@@ -24,9 +24,7 @@ class ExpenseWidget extends StatelessWidget {
           Expanded(
             child: Text(
               "${expense.nivelConhecimento} - ${expense.percentualColaborador!.round()}%",
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
         ],

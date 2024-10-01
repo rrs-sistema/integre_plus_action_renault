@@ -39,6 +39,7 @@ class Session {
     colaboradorController.getPontuacaoProdutividadeStream();
     colaboradorController.getConhecimentoTecnicoStream();
     colaboradorController.getCombinacaoIndicadorestream(null);
+    colaboradorController.getMediaGeralStream(null);
   }
 
   static setLookupController() {

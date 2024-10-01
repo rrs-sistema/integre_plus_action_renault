@@ -59,6 +59,10 @@ class ColaboradoresController extends GetxController
   Filter get filter => _filter.value;
   set filter(value) => _filter.value = value ?? Filter();
 
+  final RxDouble _mediaGeral = 0.0.obs;
+  double get mediaGeral => _mediaGeral.value;
+  set mediaGeral(value) => _mediaGeral.value = value ?? double;
+
   var _isInserting = false;
 
   // tab page
@@ -254,6 +258,15 @@ class ColaboradoresController extends GetxController
           pontuacaoGeralStream = cola;
           index++;
         }
+        update();
+      });
+    });
+  }
+
+  Future<void> getMediaGeralStream(int? idColaborador) async {
+    await colaboradoresRepository.getMediaGeralStream(idColaborador).then((data) {
+      data.listen((onData) {
+        mediaGeral = onData['mediaGeral'];
         update();
       });
     });

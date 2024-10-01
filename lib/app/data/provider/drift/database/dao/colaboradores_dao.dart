@@ -109,6 +109,45 @@ class ColaboradoresDao extends DatabaseAccessor<AppDatabase> with _$Colaboradore
     });
   }
 
+  Stream<Map<String, dynamic>> getMediaGeralStream(int? idColaborador) {
+    String where = 'where 1=1 ';
+    if (idColaborador != null) {
+      where = 'where colaboradorid = $idColaborador';
+    }
+    return customSelect(
+      "SELECT "
+      "(( "
+      "(SELECT AVG(CASE "
+      "WHEN NivelConhecimento = 'Básico' THEN 1 "
+      "WHEN NivelConhecimento = 'Intermediário' THEN 2 "
+      "WHEN NivelConhecimento = 'Avançado' THEN 3 "
+      "ELSE 0 "
+      "END) "
+      "FROM ConhecimentoTecnico $where) + "
+      "(SELECT AVG(PontuacaoEngajamento) "
+      "FROM EngajamentoProatividade $where) + "
+      "(SELECT AVG(AvaliacaoComunicacao) "
+      "FROM CapacidadeComunicacao $where) + "
+      "(SELECT AVG(MetasAtingidas) "
+      "FROM ResultadosAtingidos $where) + "
+      "(SELECT AVG(PontuacaoProdutividade) "
+      "FROM ResultadosAtingidos $where) + "
+      "(SELECT (COUNT(DISTINCT ColaboradorID) / (SELECT COUNT(*) FROM Colaboradores $where)) * 100 "
+      "FROM CapacitacaoTreinamentos $where) + "
+      "(SELECT AVG(LENGTH(Feedback)) "
+      "FROM FeedbackSupervisores $where) + "
+      "(SELECT AVG(AvaliacaoResolucao) "
+      "FROM ResolucaoProblemas $where) + "
+      "(SELECT AVG(FaltasInjustificadas) "
+      "FROM AssiduidadePontualidade $where) + "
+      "(SELECT AVG(Atrasos) "
+      "FROM AssiduidadePontualidade $where) "
+      ") / 10) AS mediaGeral;",
+    ).watch().map((rows) {
+      return rows.map((row) => row.data).first;
+    });
+  }
+
   Future<List<Colaboradores>> getList() async {
     colaboradoresList = await select(colaboradoress).get();
     return colaboradoresList;

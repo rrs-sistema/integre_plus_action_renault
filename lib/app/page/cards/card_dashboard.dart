@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integre_plus_action_renault/app/controller/theme_controller.dart';
 import 'package:integre_plus_action_renault/app/infra/colors.dart';
+import 'package:integre_plus_action_renault/app/infra/util.dart';
 
 class CardDashboard extends StatelessWidget {
   final String title;
@@ -32,46 +33,53 @@ class CardDashboard extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Adicionando o ícone na esquerda
-                  Image.asset(
-                    iconPath,
-                    width: 40,
-                    height: 40,
-                    color: themeController.isDarkMode ? Colors.white : Colors.black,
-                  ),
+
                   // ignore: prefer_const_constructors
                   SizedBox(width: 16), // Espaço entre o ícone e o texto
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          title,
-                          overflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            title,
+                            overflow: TextOverflow.visible,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: !Util.isTelaPequena(context)! ? 16 : 14,
+                              fontWeight: FontWeight.bold,
+                              color: themeController.isDarkMode ? Colors.white : Colors.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          value,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: !Util.isTelaPequena(context)! ? 24 : 16,
                             fontWeight: FontWeight.bold,
                             color: themeController.isDarkMode ? Colors.white : Colors.black,
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        value,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: themeController.isDarkMode ? Colors.white : Colors.black,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Image.asset(
+                            iconPath,
+                            width: 60,
+                            height: 60,
+                            color: themeController.isDarkMode ? Colors.white : Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

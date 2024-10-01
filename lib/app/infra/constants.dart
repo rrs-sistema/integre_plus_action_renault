@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Constants {
   Constants._();
 
-  static const String appName = 'Unicesumar Integra Renault';
+  static const String appName = 'TalentForge';
   static const String appVersion = 'version 1.0.1';
 
   static const double flutterBootstrapGutterSize = 10.0;
@@ -30,6 +30,7 @@ class Constants {
   static const String resolution = '$iconDir/resolution.png';
   static const String absence = '$iconDir/absence.png';
   static const String late = '$iconDir/late.png';
+  static const String slogan = '$iconDir/slogan.jpg';
 
   // local database
   static const sqlGetSettings = "SELECT * FROM HIDDEN_SETTINGS WHERE ID=1";

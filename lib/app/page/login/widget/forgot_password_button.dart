@@ -10,26 +10,26 @@ class ForgotPasswordButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      TextButton(
-          onPressed: () {
-            Get.to(() => ForgotPasswordPage());
-          },
-          style: TextButton.styleFrom(
-              backgroundColor: controller.backgroundColor,
-              padding:
-                  const EdgeInsets.symmetric(vertical: 14.0, horizontal: 40),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0))),
-          child: Text(
-            'login_cant_login'.tr,
-            style: const TextStyle(
-              color: Colors.white,
-              letterSpacing: 0.5,
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+    return TextButton(
+      onPressed: () {
+        Get.to(() => ForgotPasswordPage());
+      },
+      style: TextButton.styleFrom(
+        backgroundColor: controller.backgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 40),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+      ),
+      child: Text(
+        'login_cant_login'.tr,
+        style: const TextStyle(
+          color: Colors.white,
+          letterSpacing: 0.5,
+          fontSize: 12.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

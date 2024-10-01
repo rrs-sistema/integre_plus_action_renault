@@ -12,7 +12,7 @@ class SplashScreenPage extends StatelessWidget {
     await Future.delayed(const Duration(seconds: 3));
   }
 
-  @override  
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: initializeSettings(),
@@ -23,33 +23,33 @@ class SplashScreenPage extends StatelessWidget {
               fit: StackFit.expand,
               children: <Widget>[
                 Container(
-                  decoration: BoxDecoration(color: Get.isDarkMode ? Colors.blueGrey.shade400 : Colors.blueGrey.shade900),
+                  decoration: BoxDecoration(
+                      color: Get.isDarkMode ? Colors.blueGrey.shade400 : Colors.blueGrey.shade900),
                 ),
                 FittedBox(
                   child: Column(
                     children: [
                       const SizedBox(
                         height: 20.0,
-                      ),                      
+                      ),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
                         height: 300,
                         width: 300,
+                        decoration: BoxDecoration(
+                          color: Constants.secondaryColor,
+                          borderRadius: const BorderRadius.all(Radius.circular(25)),
+                          border: Border.all(color: Colors.white10),
+                        ),
                         child: Image.asset(
-                          Constants.logotipo,
+                          Constants.slogan,
+                          fit: BoxFit.fill,
                         ),
                       ),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      const Text(
-                        "Unicesumar Integra Renault",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox( 
+                      const SizedBox(
                         height: 10.0,
                       ),
                       const CircularProgressIndicator(),
@@ -59,25 +59,21 @@ class SplashScreenPage extends StatelessWidget {
                       Text(
                         'welcome_message'.tr,
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold
-                        ),                   
+                            color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox( 
+                      const SizedBox(
                         height: 10.0,
                       ),
                     ],
                   ),
                 ),
               ],
-            ),   
+            ),
           );
         } else {
           return const LoginPage();
         }
       },
-    );    
-    
+    );
   }
 }

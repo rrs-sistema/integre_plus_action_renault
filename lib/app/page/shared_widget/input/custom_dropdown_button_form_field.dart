@@ -31,6 +31,10 @@ class CustomDropdownButtonFormField extends StatelessWidget {
           filled: true,
           isDense: true,
           contentPadding: const EdgeInsets.only(right: 10),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+            gapPadding: 10,
+          ),
           label: Column(
             children: [
               Padding(

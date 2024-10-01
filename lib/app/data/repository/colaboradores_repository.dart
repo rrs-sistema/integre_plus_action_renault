@@ -19,6 +19,10 @@ class ColaboradoresRepository {
     return await colaboradoresDriftProvider.getCombinacaoIndicadorestream(idColaborador);
   }
 
+  Future<Stream<Map<String, dynamic>>> getMediaGeralStream(int? idColaborador) async {
+    return await colaboradoresDriftProvider.getMediaGeralStream(idColaborador);
+  }
+
   Future getList({Filter? filter}) async {
     return await colaboradoresDriftProvider.getList(filter: filter);
   }

@@ -29,6 +29,20 @@ class Util {
     );
   }
 
+  /// define o que é a tela pequena e se o dispositivo utilizado tem a tela pequena
+  static bool? isTelaPequena(BuildContext context) {
+    return bootStrapValueBasedOnSize(
+      sizes: {
+        "xl": false,
+        "lg": false,
+        "md": false,
+        "sm": false,
+        "": true,
+      },
+      context: context,
+    );
+  }
+
   static String formatDate(DateTime? date) {
     if (date == null) {
       return '';
