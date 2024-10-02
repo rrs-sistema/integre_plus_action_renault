@@ -413,6 +413,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "275ff26905134bcb59417cf60ad979136f1f8257f2f449914b2c3e05bbb4cd6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.7.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -445,6 +453,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  graphview:
+    dependency: "direct main"
+    description:
+      name: graphview
+      sha256: bdba183583b23c30c71edea09ad5f0beef612572d3e39e855467a925bd08392f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   http:
     dependency: transitive
     description:

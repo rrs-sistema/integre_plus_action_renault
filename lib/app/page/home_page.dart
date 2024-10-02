@@ -131,7 +131,7 @@ class HomePage extends GetView<ColaboradoresController> {
                                   child: Padding(
                                     padding: Util.distanceBetweenColumnsLineBreak(context)!,
                                     child: SpeedometerChart(
-                                      animationDuration: 15000,
+                                      animationDuration: 5000,
                                       minWidget: const Text(
                                         "Min: 0",
                                         style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

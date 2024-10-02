@@ -47,20 +47,20 @@ class MainSideDrawer extends StatelessWidget {
             enabled: Session.loggedInUser.administrador == 'S'
                 ? true
                 : Session.accessControlList
-                        .where(((t) => t.funcaoNome == 'supervisores'))
+                        .where(((t) => t.funcaoNome == 'trilha'))
                         .toList()
                         .isNotEmpty
                     ? Session.accessControlList
-                            .where(((t) => t.funcaoNome == 'supervisores'))
+                            .where(((t) => t.funcaoNome == 'trilha'))
                             .toList()[0]
                             .habilitado ==
                         'S'
                     : false,
             onTap: () {
-              Get.toNamed(Routes.supervisoresListPage);
+              Get.toNamed(Routes.menuTilhaWidget);
             },
             title: const Text(
-              'Supervisor',
+              'Trilha',
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
             ),
             leading: Icon(
