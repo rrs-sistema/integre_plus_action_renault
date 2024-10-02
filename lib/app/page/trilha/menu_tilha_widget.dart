@@ -6,7 +6,7 @@ import 'package:integre_plus_action_renault/app/page/trilha/gradiente_app.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/menu_interno_botoes.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/menu_titulo_grupo_menu_interno.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/profile_tile.dart';
-import 'package:integre_plus_action_renault/app/page/trilha/tree_view_page.dart';
+import 'package:integre_plus_action_renault/app/page/trilha/trilha_lider_page.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/trilha_operador_page.dart';
 
 class MenuTilhaWidget extends StatelessWidget {
@@ -55,10 +55,6 @@ class MenuTilhaWidget extends StatelessWidget {
               height: 10,
             ),
             actionMenuCadastroGerais(context),
-            const SizedBox(
-              height: 10,
-            ),
-            const TreeViewPage()
           ],
         ),
       ),
@@ -109,13 +105,13 @@ class MenuTilhaWidget extends StatelessWidget {
                         icon: FontAwesomeIcons.streetView,
                         label: "Trilha do líder",
                         circleColor: Colors.orange,
-                        rota: "/trilha_lider"),
+                        onPressed: () => showDialogTrilha(context, lider: true)),
                     segundoBotao: BotaoMenu(
                         // ignore: deprecated_member_use
                         icon: Icons.streetview,
                         label: "Trilha do operador",
                         circleColor: Colors.teal,
-                        onPressed: () => showDialogOperador(context)),
+                        onPressed: () => showDialogTrilha(context, lider: false)),
                     terceiroBotao: null,
                     quartoBotao: null,
                   ),
@@ -126,7 +122,7 @@ class MenuTilhaWidget extends StatelessWidget {
         ),
       );
 
-  Future<bool?> showDialogOperador(BuildContext context) {
+  Future<bool?> showDialogTrilha(BuildContext context, {bool lider = false}) {
     final primaryColor = Theme.of(context).primaryColor;
     return showDialog(
         context: context,
@@ -147,14 +143,14 @@ class MenuTilhaWidget extends StatelessWidget {
                     children: [
                       Container(
                         color: primaryColor,
-                        child: const Column(
+                        child: Column(
                           children: <Widget>[
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 ProfileTile(
                                   title: 'TalentForge',
-                                  subtitle: "Trilha do operador",
+                                  subtitle: lider ? 'Trilha do líder' : 'Trilha do operador',
                                   textColor: Colors.white,
                                 ),
                               ],
@@ -162,9 +158,10 @@ class MenuTilhaWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 55),
-                        child: Center(child: TrilhaOperadorPage()),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 55),
+                        child: Center(
+                            child: lider ? const TrilhaLiderPage() : const TrilhaOperadorPage()),
                       ),
                     ],
                   ),

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:graphview/GraphView.dart';
 import 'package:integre_plus_action_renault/app/infra/colors.dart';
 
-class TreeViewPage extends StatefulWidget {
-  const TreeViewPage({super.key});
+class TrilhaLiderPage extends StatefulWidget {
+  const TrilhaLiderPage({super.key});
 
   @override
-  State<TreeViewPage> createState() => _TreeViewPageState();
+  State<TrilhaLiderPage> createState() => _TrilhaLiderPageState();
 }
 
-class _TreeViewPageState extends State<TreeViewPage> {
+class _TrilhaLiderPageState extends State<TrilhaLiderPage> {
   final Graph graph = Graph()..isTree = true;
   BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
 
@@ -80,10 +80,12 @@ class _TreeViewPageState extends State<TreeViewPage> {
             // I can decide what widget should be shown here based on the id
             var titulo = node.key!.value! as String;
             int index = 0;
+            Random random = Random();
+            .nextInt(27);
             if (titulo.contains(':')) {
               var indexString = titulo.substring(0, titulo.indexOf(':'));
               print('index ==>>> $indexString');
-              index = int.parse(indexString);
+              index = random.nextInt(25);
             }
 
             return rectangleWidget(titulo, index);
