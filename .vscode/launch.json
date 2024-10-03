@@ -2,18 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Integre + Ação",
+      "name": "TalentForge",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "Integre + Ação (profile mode)",
+      "name": "TalentForge (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "Integre + Ação (release mode)",
+      "name": "TalentForge (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

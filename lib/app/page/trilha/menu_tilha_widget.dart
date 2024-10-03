@@ -6,7 +6,7 @@ import 'package:integre_plus_action_renault/app/page/trilha/gradiente_app.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/menu_interno_botoes.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/menu_titulo_grupo_menu_interno.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/profile_tile.dart';
-import 'package:integre_plus_action_renault/app/page/trilha/trilha_lider_page.dart';
+import 'package:integre_plus_action_renault/app/page/trilha/trilha_lider_melhorada_page.dart';
 import 'package:integre_plus_action_renault/app/page/trilha/trilha_operador_page.dart';
 
 class MenuTilhaWidget extends StatelessWidget {
@@ -137,33 +137,39 @@ class MenuTilhaWidget extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        color: primaryColor,
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                ProfileTile(
-                                  title: 'TalentForge',
-                                  subtitle: lider ? 'Trilha do líder' : 'Trilha do operador',
-                                  textColor: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          color: primaryColor,
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  ProfileTile(
+                                    title: 'TalentForge',
+                                    subtitle: lider
+                                        ? 'Trilha de sucesso de um líder'
+                                        : 'Trilha de sucesso de um operador',
+                                    textColor: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 55),
-                        child: Center(
-                            child: lider ? const TrilhaLiderPage() : const TrilhaOperadorPage()),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Center(
+                              child: lider
+                                  ? const LeadershipPathWidget()
+                                  : const TrilhaOperadorPage()),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(

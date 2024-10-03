@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphview/GraphView.dart';
 import 'package:integre_plus_action_renault/app/infra/colors.dart';
@@ -44,7 +45,9 @@ class _TrilhaOperadorPageState extends State<TrilhaOperadorPage> {
   Widget rectangleWidget(String titulo, int index) {
     return InkWell(
       onTap: () {
-        print('clicked == $titulo');
+        if (kDebugMode) {
+          print('clicked == $titulo');
+        }
       },
       child: Container(
           padding: const EdgeInsets.all(16),

@@ -28,6 +28,7 @@ const Color gainsboroClr = Color.fromARGB(255, 220, 220, 220); //*******(23)
 const Color honeydewClr = Color.fromARGB(255, 240, 255, 240); //**********(24)
 const Color lighSteelBlueClr = Color.fromARGB(255, 176, 196, 222); //*****(25)
 const Color mistyRoseClr = Color.fromARGB(255, 255, 228, 225); //*********(26)
+const Color mistyBlack = Color.fromARGB(255, 0, 0, 0); //*********(27)
 
 const Color white = Colors.white;
 const Color darkGreyClr = Color(0xFF212332);
@@ -89,6 +90,8 @@ Color getColor(int color) {
       return lighSteelBlueClr;
     case 26:
       return mistyRoseClr;
+    case 27:
+      return mistyBlack;
     default:
       return darkGreyClr;
   }

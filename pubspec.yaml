@@ -45,6 +45,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.14.1
   build_runner: ^2.1.4
   build_web_compilers: ^4.0.8
   drift_dev:
@@ -57,11 +58,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/launcher_icon.png" 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -81,14 +77,35 @@ flutter:
      - assets/fonts/
      - assets/fonts/report/
 
-# Flutter Doctor from Vycanis Machine 
-#Doctor summary (to see all details, run flutter doctor -v):
-#[√] Flutter (Channel stable, 3.22.3, on Microsoft Windows [versÆo 10.0.19045.4651], locale pt-BR)
-#[√] Windows Version (Installed version of Windows is version 10 or higher)
-#[√] Android toolchain - develop for Android devices (Android SDK version 33.0.0)
-#[√] Chrome - develop for the web
-#[√] Visual Studio - develop Windows apps (Visual Studio Community 2022 17.10.3)
-#[√] Android Studio (version 2021.2)
-#[√] VS Code (version 1.90.2)
-#[√] Connected device (3 available)
-#[√] Network resources	 
+msix_config:
+  display_name: TalentForge
+  publisher_display_name: TalentForge
+  identity_name: TalentForge.UNICESUMAR
+  msix_version: 1.0.10.0
+  publisher: CN=0A6E4754-6ACC-44ED-81F6-94B57BF2E8BC
+  logo_path: C:\talentforge\reobote_pdv\assets\images\slogan.png
+  capabilities: internetClient,systemManagement,pointOfService,bluetooth
+  store: true     
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/slogan.png"
+flutter_icons:
+  image_path: "assets/images/slogan.png"
+  android: true
+  ios: true
+  min_sdk_android: 24
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: "assets/images/slogan.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/slogan.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/slogan.png"

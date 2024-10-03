@@ -11,18 +11,15 @@ import 'app/data/provider/drift/database/database.dart';
 void main() async {
   Get.lazyPut(() => AppDatabase(Platform.createDatabaseConnection('integre_plus_action_renault')));
   Get.lazyPut(() => ThemeController(), permanent: true);
-  runApp(
-    GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: FlexThemeData.light(scheme: FlexScheme.blumineBlue),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.blumineBlue),
-      themeMode: await Get.find<ThemeController>().getTheme(),      
-      defaultTransition: Transition.fade,
-      getPages: AppPages.pages, 
-      home: const SplashScreenPage(), 
-      locale: AppTranslation.locale, 
-      translations: AppTranslation(),
-    )
-  );
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: FlexThemeData.light(scheme: FlexScheme.blumineBlue),
+    darkTheme: FlexThemeData.dark(scheme: FlexScheme.blumineBlue),
+    themeMode: await Get.find<ThemeController>().getTheme(),
+    defaultTransition: Transition.fade,
+    getPages: AppPages.pages,
+    home: const SplashScreenPage(),
+    locale: AppTranslation.locale,
+    translations: AppTranslation(),
+  ));
 }
-
